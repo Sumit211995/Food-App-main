@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Cart from "../../public/images/shopping_cart.svg";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/userContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
 
@@ -11,6 +12,11 @@ const [btnName, setBtnName] = useState("Login");
 const onlineStatus = useOnlineStatus();
 
 const {loggedInUser} = useContext(UserContext);
+
+//Subscribing to the store use a selector
+const cartItems = useSelector((store)=>
+  store.cart.items
+);
 
   return (
     <div className="w-full bg-amber-50 shadow-lg top-0 z-10 flex flex-row">
@@ -39,9 +45,10 @@ const {loggedInUser} = useContext(UserContext);
             
           </div>
           <div className="flex  ml-12 cursor-pointer hover:text-neutral-700">
-          <span>
-          Cart 
-          </span> <img src={Cart} />
+          <span className="font-bold">
+          Cart {cartItems.length}
+          </span> 
+          {/* <img src={Cart} /> */}
           </div>
         </div>
           <div className="ml-12 cursor-pointer px-2 py-1 rounded-md bg-pink-600 hover:bg-pink-800 text-white">
